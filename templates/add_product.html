@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Add Product - Gaiyang Store{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 20px auto;
+        background: #f8f9fa;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+    }
+    input, textarea, select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: inherit;
+        font-size: 1em;
+        transition: border-color 0.3s;
+    }
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+    }
+    textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+    .form-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 30px;
+    }
+    button {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        font-weight: 600;
+        font-size: 1em;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .btn-submit {
+        background: #667eea;
+        color: white;
+    }
+    .btn-submit:hover {
+        background: #764ba2;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+    .btn-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .btn-reset:hover {
+        background: #5a6268;
+    }
+    .required {
+        color: #dc3545;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>Add New Product</h2>
+
+{% if success %}
+    <div class="alert alert-success">{{ success }}</div>
+{% endif %}
+
+{% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+<div class="form-container">
+    <form method="POST" action="/add-product">
+        <div class="form-group">
+            <label for="product_name">Product Name <span class="required">*</span></label>
+            <input type="text" id="product_name" name="product_name" required placeholder="e.g., Spicy Grilled Chicken Leg">
+        </div>
+
+        <div class="form-group">
+            <label for="product_category">Category <span class="required">*</span></label>
+            <select id="product_category" name="product_category" required>
+                <option value="">-- Select Category --</option>
+                <option value="Grilled Chicken">Grilled Chicken</option>
+                <option value="Sides">Sides</option>
+                <option value="Drinks">Drinks</option>
+                <option value="Sauces">Sauces</option>
+                <option value="Combos">Combos</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="product_price">Price (฿) <span class="required">*</span></label>
+            <input type="number" id="product_price" name="product_price" required step="0.01" min="0" placeholder="e.g., 12.99">
+        </div>
+
+        <div class="form-group">
+            <label for="product_stock">Stock Quantity <span class="required">*</span></label>
+            <input type="number" id="product_stock" name="product_stock" required min="0" placeholder="e.g., 50">
+        </div>
+
+        <div class="form-group">
+            <label for="product_image_url">Image URL</label>
+            <input type="url" id="product_image_url" name="product_image_url" placeholder="e.g., https://example.com/image.jpg">
+        </div>
+
+        <div class="form-group">
+            <label for="product_description">Description</label>
+            <textarea id="product_description" name="product_description" placeholder="Add product details, ingredients, or special instructions..."></textarea>
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit" class="btn-submit">➕ Add Product</button>
+            <button type="reset" class="btn-reset">🔄 Clear Form</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
